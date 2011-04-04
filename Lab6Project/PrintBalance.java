@@ -13,43 +13,82 @@ import java.util.Scanner;
  *         Created Mar 27, 2010.
  */
 public class PrintBalance{
-
+	Locale locale;
+	double balance;
+	ResourceBundle message;
 	
 	/**
 	 * Simple Java Method that is crying out to be localized.
 	 *
 	 * @param args
 	 */
-	public static void main(String[] args)
+	public PrintBalance(Locale locale, double balance)
 	{
-		Locale locale = new Locale("gr", "GR");
-		ResourceBundle message = ResourceBundle.getBundle("MessagesBundle", locale);
+		this.locale = locale;
+		this.balance = balance;
+		this.message = ResourceBundle.getBundle("MessagesBundle", this.locale);
 		
+	}
+	
+	public String greeting()
+	{
+		return message.getString("greeting");
+	}
+	public String getName()
+	{
+		return message.getString("getname");
+	}
+	public String meeting()
+	{
+		return message.getString("meeting");
+	}
+	public String date()
+	{
+		return message.getString("date");
+	}
+	public String balance()
+	{
+		return message.getString("balance");
+	}
+	public String farewell()
+	{
+		return message.getString("farewell");
+	}
+	
+	public String calcMoney()
+	{
+		return NumberFormat.getCurrencyInstance(this.locale).format(this.balance);
+	}
+	
+	public String getDate()
+	{
+		return DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL, this.locale).format(new Date());
+	}
+	
+	public void printBalance(String[] args)
+	{
 		Scanner scanInput = new Scanner(System.in);
-		Date today = new Date();
-		
-		DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL, locale).format(today);
 		
 		//Greeting
 		//System.out.println("Hello World");
-		System.out.println(message.getString("greeting"));
+		System.out.println(this.greeting());
 		
 		//Get User's Name
 //		System.out.println("Please enter your name");
 //		System.out.println("I am pleased to meet you " + name);
-		System.out.println(message.getString("getname"));
+		System.out.println(this.getName());
 		String name = scanInput.nextLine();
-		System.out.println(message.getString("meeting") + name);
+		System.out.println(this.meeting() + name);
 		
 		
 		//print today's date, balance and bid goodbye
 //		System.out.println("As of : "+ today.toString());
 //		System.out.println("You owe the school $9876543.21");
 //		System.out.println("Good Bye");
-		String money = NumberFormat.getCurrencyInstance(locale).format(9876543.21);
-		System.out.println(message.getString("date") + today);
-		System.out.println(message.getString("balance") + money);
-		System.out.println(message.getString("farewell"));
+		System.out.println(this.date() + this.getDate());
+		System.out.println(this.balance() + this.calcMoney());
+		System.out.println(this.farewell());
+
 	}
 }
 
