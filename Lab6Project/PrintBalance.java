@@ -62,10 +62,10 @@ public class PrintBalance{
 	
 	public String getDate()
 	{
-		return DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL, this.locale).format(new Date());
+		return DateFormat.getDateInstance(DateFormat.FULL, this.locale).format(new Date());
 	}
 	
-	public void printBalance(String[] args)
+	public void printBalance()
 	{
 		Scanner scanInput = new Scanner(System.in);
 		
